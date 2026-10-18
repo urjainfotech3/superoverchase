@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="gu"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Super Over Chase Challenge</title>
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0b1226;color:#fff;font-family:system-ui,sans-serif;text-align:center;padding:24px}
+.card{max-width:360px}p{color:#b8c2dd}
+a{display:block;margin:12px 0;padding:14px;border-radius:12px;text-decoration:none;font-weight:700}
+.p{background:#ffb81c;color:#111}.s{background:#1c2a52;color:#fff}
+</style></head><body>
+<div class="card"><h1>🏏 Super Over Chase</h1>
+<p id="msg">તમને ચેલેન્જ મળી છે! ગેમ ખોલો અથવા ઇન્સ્ટોલ કરો.</p>
+<a id="open" class="p" href="#">ગેમ ખોલો</a>
+<a id="install" class="s" href="#">Play Store પરથી ઇન્સ્ટોલ કરો</a></div>
+<script>
+var PKG="com.superoverchase.game";
+var code=(new URLSearchParams(location.search).get("code")||"").trim();
+var ok=/^[A-Za-z0-9]{4,32}$/.test(code);
+var store="https://play.google.com/store/apps/details?id="+PKG;
+if(ok)store+="&referrer="+encodeURIComponent("challenge="+code);
+document.getElementById("install").href=store;
+if(!ok){document.getElementById("msg").textContent="આ ચેલેન્જ લિંક માન્ય નથી.";document.getElementById("open").style.display="none";}
+else{
+document.getElementById("open").href="intent://"+location.host+location.pathname+"?code="+code+"#Intent;scheme=https;package="+PKG+";end";
+setTimeout(function(){location.href=store;},2500);
+}
+</script></body></html>
